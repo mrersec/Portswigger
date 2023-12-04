@@ -1,16 +1,16 @@
 					        Access control vulnerabilities
                  Erişim Kontrolü Güvenlik Açıkları
-		#################################################
-		#			  Unprotected admin functionality         #
-		#			  Korumasız yönetici işlevi               #
-		#################################################
+		############################################################################
+		#			  Unprotected admin functionality                  #
+		#			  Korumasız yönetici işlevi                        #
+		############################################################################
 1--> https://$yourweblink.web-security-academy.net/administrator-panel
 /robots.txt içerisinden /administrator-panel'e erişip carlos adlı kullanıcıyı siliyoruz.
 
-		#####################################################################
-		#	    Unprotected admin functionality with unpredictable URL        #
-		#	    Tahmin edilemeyen URL'ye sahip korumasız yönetici işlevi      #
-		#####################################################################
+		###############################################################################
+		#	    Unprotected admin functionality with unpredictable URL            #
+		#	    Tahmin edilemeyen URL'ye sahip korumasız yönetici işlevi          #
+		###############################################################################
 2--> https://$yourweblink.web-security-academy.net/admin-u2fp2m
 burpsuite isteklerden /admin-u2fp2m klasörünü yakalıyoruz ve carlos isimli kullanıcıyı silebiliyoruz.
 Burpsuite ile ifşa olan zaafiyetli kodlar aşağıdaki gibidir.
@@ -28,71 +28,71 @@ Burpsuite ile ifşa olan zaafiyetli kodlar aşağıdaki gibidir.
         }
         </script>
 
-		#######################################################################
-		#	     User role controlled by request parameter                      #
-		#	     İstek parametresi tarafından kontrol edilen kullanıcı rolü     #
-		#######################################################################
+		#################################################################################
+		#	     User role controlled by request parameter                          #
+		#	     İstek parametresi tarafından kontrol edilen kullanıcı rolü         #
+		#################################################################################
 3--> https://$yourweblink.web-security-academy.net/admin
 burpsuite üzerinden Cookie: Admin=true; yapıyoruz false değerini ve forward ile admin hesabından
 carlos kullanıcısını silebiliyoruz.
 
-		###############################################################
-		#	    User role can be modified in user profile               #
-		#	    Kullanıcı rolü kullanıcı profilinde değiştirilebilir    #
-		###############################################################
+		#########################################################################
+		#	    User role can be modified in user profile                   #
+		#	    Kullanıcı rolü kullanıcı profilinde değiştirilebilir        #
+		#########################################################################
 4--> https://$yourweblink.web-security-academy.net/admin
 burpsuite isteklerden json idrole=1 verdi idrole=2 yaparak admine girip carlos kullanıcısını siliyoruz.
 
-		####################################################################
-		#	User ID controlled by request parameter        	                 #
-		#	İstek parametresi tarafından kontrol edilen kullanıcı kimliği    #
-		####################################################################
+		##############################################################################
+		#	User ID controlled by request parameter        	                     #
+		#	İstek parametresi tarafından kontrol edilen kullanıcı kimliği        #
+		##############################################################################
 5--> https://$yourweblink.web-security-academy.net/my-account?id=wiener
 GET /my-account?id=carlos HTTP/2 olarak değiştirince carlosun api-keyi çıkıyor karşımıza.
 
 
-		####################################################################################################################
-		#	User ID controlled by request parameter, with unpredictable user IDs                                             #
-		#	Tahmin edilemeyen kullanıcı kimliklerine sahip, istek parametresi tarafından kontrol edilen Kullanıcı Kimliği    #
-		####################################################################################################################
+		##############################################################################################################################
+		#	User ID controlled by request parameter, with unpredictable user IDs                                                 #
+		#	Tahmin edilemeyen kullanıcı kimliklerine sahip, istek parametresi tarafından kontrol edilen Kullanıcı Kimliği        #
+		##############################################################################################################################
 6--> carlosun blog yorumundaki profiline girdiğimizde id=carlosidsi görünüyor adreste.
 burpsuiteden id parametresini değiştirip gönderdiğimizde carlosun api-keyine ulaşıyoruz.
 
 
-    ###########################################################################################################
-		#	User ID controlled by request parameter with data leakage in redirect                                   #
-		#	Yönlendirmede veri sızıntısı olan istek parametresi tarafından kontrol edilen kullanıcı kimliği         #
-		###########################################################################################################
+                #####################################################################################################################
+		#	User ID controlled by request parameter with data leakage in redirect                                       #
+		#	Yönlendirmede veri sızıntısı olan istek parametresi tarafından kontrol edilen kullanıcı kimliği             #
+		#####################################################################################################################
 7--> 
 GET /my-account?id=wiener HTTP/2 id parametresini
 GET /my-account?id=carlos HTTP/2 ile değiştiriyoruz ve carlos api-key görünüyor.
 
-    #######################################################################################
+                #############################################################################################
 		#	User ID controlled by request parameter with password disclosure                    #
 		#	Şifre açıklamalı istek parametresi tarafından kontrol edilen kullanıcı kimliği      #
-		#######################################################################################
+		#############################################################################################
 8--> https://$yourweblink.web-security-academy.net/my-account?id=wiener
 urldeki id parametresini administrator ile değiştirip burpsuiteden admin passwordunu alıp giriş yapıyoruz.
 Sonra carlos adlı kullanıcıyı admin panelinden silebiliyoruz.
 
-    ######################################################
+                ############################################################
 		#	Insecure direct object references                  #
 		#	Güvenli olmayan doğrudan nesne referansları        #
-		######################################################
+		############################################################
 9--> Livechat view transkript indirme özelliğinden artan sayıda txt dosyası indiriyor.
 1.txt yaparak isteği gönderip responsu görüntüledik ve carlosun passwordu alıp giriş yaptık.
 
-    ######################################################
+                ############################################################
 		#	URL-based access control can be circumvented       #
 		#	URL tabanlı erişim kontrolü aşılabilir             #
-		######################################################
+		############################################################
 10--> GET / HTTP/2 ve X-Original-Url: /admin ile  <a href="/admin/delete?username=wiener">Delete</a> response döndü.
 GET /?username=carlos HTTP/2
 ek olarak
 X-Original-Url: /admin/delete değişiklikleri ile carlosu silebiliyoruz.
 
-    #########################################################
+                ###############################################################
 		#	Method-based access control can be circumvented       #
 		#	Yöntem tabanlı erişim kontrolü aşılabilir             #
-		#########################################################
+		###############################################################
 11--> 
