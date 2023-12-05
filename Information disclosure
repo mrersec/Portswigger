@@ -1,35 +1,35 @@
                       Information disclosure
                       Bilgi ifşası
 
-    		###################################################
-    		# 	  Information disclosure in error messages    #
-    		#	    Hata mesajlarında bilgilerin açıklanması    #
-    		###################################################
+    		#####################################################
+    		# 	  Information disclosure in error messages      #
+    		#	    Hata mesajlarında bilgilerin açıklanması      #
+    		#####################################################
 
 1--> anasayfa'dan ürün detaylarına girip burpsuite ile isteği yakalıyoruz.
 GET /product?productId=1 HTTP/2 isteğini
 GET /product?productId=qwe HTTP/2 ile değiştiriyoruz ve apache versiyonunu buluyoruz.
 Response => Apache Struts 2 2.3.31
 
-    		##########################################################
-    		# 	  Information disclosure on debug page               #
-    		#	    Hata ayıklama sayfasındaki bilgilerin açıklanması  #
-    		##########################################################
+    		############################################################
+    		# 	  Information disclosure on debug page                 #
+    		#	    Hata ayıklama sayfasındaki bilgilerin açıklanması    #
+    		############################################################
 
 2--> anasayfa'dan istek yollayıp burpsuite giriyoruz. burpsuite-->sitemap-->cgi-bin-->phpinfo.php repeatere yolluyoruz.
 SECRETKEY olarak karşımıza çıkıyor ipucu.
 
-    		######################################################################
-    		# 	  Source code disclosure via backup files                        #
-    		#	    Yedekleme dosyaları aracılığıyla kaynak kodunun açıklanması    #
-    		######################################################################
+    		########################################################################
+    		# 	  Source code disclosure via backup files                          #
+    		#	    Yedekleme dosyaları aracılığıyla kaynak kodunun açıklanması      #
+    		########################################################################
 
 3--> /robots.txt --> /backup --> postgresql password ulaşılabiliyor.
 
-    		#########################################################
-    		# 	  Authentication bypass via information disclosure  #
-    		#	    Bilgi ifşası yoluyla kimlik doğrulamayı atlama    #
-    		#########################################################
+    		###########################################################
+    		# 	  Authentication bypass via information disclosure    #
+    		#	    Bilgi ifşası yoluyla kimlik doğrulamayı atlama      #
+    		###########################################################
 
 4--> GET /my-account?id=wiener HTTP/1.1 isteğini değiştirdik
 response --> Admin interface only available to local users (bu bir ipucu.Yani belirli iplerden giriş yapılabileceğini söylüyor bize.
@@ -38,10 +38,10 @@ X-Custom-IP-Authorization çıkıyor karşımıza. Bu ise kontrol mekanizması d
 X-Custom-IP-Authorization localhost olarak güncelleyip yolluyoruz.
 burpsuite --> proxy--> options --> Match and Replace kısmına ekleyip admin paneline ulaşıyoruz.-->X-Custom-IP-Authorization: 127.0.0.1
 
-    		##########################################################
-    		# 	  Information disclosure in version control history  #
-    		#	    Sürüm kontrol geçmişinde bilgilerin ifşa edilmesi  #
-    		##########################################################
+    		############################################################
+    		# 	  Information disclosure in version control history    #
+    		#	    Sürüm kontrol geçmişinde bilgilerin ifşa edilmesi    #
+    		############################################################
 
 5--> /.git ile Git sürüm kontrol verilerini görüntülüyoruz.
 wget -r https://YOUR-LAB-ID.web-security-academy.net/.git/ ile indirip inceleyelim
