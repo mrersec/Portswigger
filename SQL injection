@@ -1,2 +1,6 @@
-      SQL injection
-      SQL enjeksiyonu
+                        SQL injection
+                        SQL enjeksiyonu
+######################################################################################################
+#      SQL injection vulnerability in WHERE clause allowing retrieval of hidden data                 #
+#      WHERE yan tümcesinde gizli verilerin alınmasına izin veren SQL enjeksiyon güvenlik açığı      #
+######################################################################################################
