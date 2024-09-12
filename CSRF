@@ -1,6 +1,9 @@
 #### CSRF güvenlik profil ve email gibi güncellemeler sonucunda meydana gelmektedir. Sebebi başlıklar halinde açıklamalarıyla portswigger örnekleriyle aşağıda listelenmiştir.
 Temelde olan güncelleme yapılırken bir form etiketi içerisinde giden verilerin manipüle edilebiliyor olmasıdır.
 Basit bir html sayfası oluşturup içerisine form verilerini değiştirerek submit aracılığı ile sunucuya iletebiliyorsak zafiyet gerçekleşmiş olur.
+Exploit server yerine kendi sunucumuzda hazırladığımız bir web sayfası aracılığı ile bu saldırıyı tamamlayabiliriz.
+Örneğin python3 -m http.server 8282 => bulunduğumuz dizini 8282 portundan http isteklerine açabiliriz.
+service apache2 start => index.html sunucu içerisine atmalıyız. /var/www/html default.
 
 1
 Savunması olmayan CSRF zafiyeti
