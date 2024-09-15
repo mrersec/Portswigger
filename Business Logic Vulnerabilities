@@ -1,0 +1,21 @@
+İş mantığı güvenlik açıkları
+
+1
+Laboratuvar: İstemci tarafındaki kontrollere aşırı güven
+
+Login olup deri ceket alma işlemi gerçekleştiriyoruz.
+Price değerini 10 olarak ayarlayıp 1337 değerinin altında bir değerle işleme devam ediyoruz.
+Ve sayfayı güncelleyip satın alımı gerçekleştiriyoruz.
+
+POST /cart HTTP/2 => yakalanacak istek
+productId=1&redir=PRODUCT&quantity=1&price=10 => değiştirilecek parametre.
+
+
+2
+Laboratuvar: Üst düzey mantık açığı
+
+Login olduk 1 ceket ekledik fiyatıo 1337 dolar.
+quantity 1 olduğunu gördük post isteği ile.
+Yeni bir ürün ekledik 88 dolar. Bu ürünün quantity değerini -15 ayarlayıp totali 100dolardan aşağıya çektik.
+productId=2&redir=PRODUCT&quantity=-15
+Ve siparişi ver diyerek 1337 dolarlık ürünü 100 dolardan daha ucuza aldık.
