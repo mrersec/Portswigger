@@ -1,0 +1,124 @@
+1
+Lab: Farklı yanıtlar aracılığıyla kullanıcı adı sıralaması - KİMLİK DOĞRULAMA - Authentication
+1. Burp çalışırken oturum açma sayfasını araştırın ve geçersiz bir kullanıcı adı ve parola gönderin.
+2. Burp'ta, Proxy > HTTP geçmişi'ne gidin ve POST /login isteği bulun. Bunu Burp Intruder'a gönder.
+3. Burp Intruder'da Konumlar sekmesine gidin. Keskin Nişancı saldırı türünün seçildiğinden emin olun .
+4. Otomatik olarak atanan yük konumlarını kaldırmak için Temizle § öğesine tıklayın . Parametrenin değerini vurgulayın usernameve onu bir yük konumu olarak ayarlamak için Ekle §'ye tıklayın .
+Bu konum iki sembolle gösterilecektir §, örneğin: username=§invalid-username§. Parolayı şimdilik herhangi bir statik değer olarak bırakın.
+5. Yükler sekmesinde , Basit liste yük türünün seçili olduğundan emin olun .
+6. Yük ayarları altında , aday kullanıcı adları listesini yapıştırın. Son olarak, Saldırıyı başlat seçeneğine tıklayın . Saldırı yeni bir pencerede başlayacak.
+7. Saldırı bittiğinde, Sonuçlar sekmesinde Uzunluk sütununu inceleyin . Sonuçları sıralamak için sütun başlığına tıklayabilirsiniz. 
+Girişlerden birinin diğerlerinden daha uzun olduğuna dikkat edin. Bu yüke verilen yanıtı diğer yanıtlarla karşılaştırın.
+Diğer yanıtların mesajı içerdiğine dikkat edin Invalid username, ancak bu yanıt diyor Incorrect password. Kullanıcı adını Yük sütununa not edin .
+8. Saldırıyı kapatın ve Pozisyonlar sekmesine geri dönün. Temizle 'yi tıklayın , ardından usernameparametreyi az önce tanımladığınız kullanıcı adıyla değiştirin. Parametreye bir yük konumu ekleyin password. Sonuç şöyle görünmelidir:
+username=identified-user&password=§invalid-password§
+9. Yükler sekmesinde , kullanıcı adları listesini temizleyin ve aday parolalar listesiyle değiştirin. Saldırıyı başlat'ı tıklayın .
+10. Saldırı bittiğinde Durum sütununa bakın. 200 Yanıt alan bir istek dışında her isteğin bir 302 durum koduyla yanıt aldığına dikkat edin. Bu, oturum açma girişiminin başarılı olduğunu gösterir - Yük sütununa parolayı not edin .
+11. Tanımladığınız kullanıcı adı ve şifreyi kullanarak giriş yapın ve laboratuvarı çözmek için kullanıcı hesabı sayfasına erişin.
+
+yapılacak işlem username password list ile tek tek intruder password ve kullanıcı adı saldırısı yapıp girmek.
+intruder'den önce id sonra pw parametrelerine ayrı ayrı brute force yap ve lenght değerine göre dene.
+username tutarsa password fail vermesi şartıyla.
+
+2
+Laboratuar: 2FA basit baypas
+1. Kendi hesabınıza giriş yapın. 2FA doğrulama kodunuz size e-posta ile gönderilecektir. E-postalarınıza erişmek için E-posta istemcisi düğmesine tıklayın .
+2. Hesap sayfanıza gidin ve URL'yi not edin.
+3. Hesabınızdan çıkış yapın.
+4. Kurbanın kimlik bilgilerini kullanarak oturum açın.
+5. Doğrulama kodu istendiğinde, adresine gitmek için URL'yi manuel olarak değiştirin /my-account. Laboratuvar, sayfa yüklendiğinde çözülür.
+2FA BASİT BYPASS
+emaile gelen dogrulama kodunu girince 1.ci kullanıcıda bir dizin gözükür./my-account diğer kurban hesabında deneyince girilir.
+/my-account uzantısını 2 kullanıcıda da çalıştırarak açık bulma.
+
+3
+Laboratuvar: Parola sıfırlama bozuk mantık
+1. Burp çalışırken Parolanızı mı unuttunuz? bağlantısını tıklayın ve kendi kullanıcı adınızı girin.
+2. Gönderilen parola sıfırlama e-postasını görüntülemek için E-posta istemcisi düğmesine tıklayın . E-postadaki bağlantıya tıklayın ve şifrenizi istediğiniz gibi sıfırlayın.
+3. Burp'ta, Proxy > HTTP geçmişi'ne gidin ve parola sıfırlama işlevi için istekleri ve yanıtları inceleyin. 
+Sıfırlama belirtecinin, sıfırlama e-postasında bir URL sorgu parametresi olarak sağlandığını gözlemleyin. 
+Yeni parolanızı gönderdiğinizde, POST /forgot-password?temp-forgot-password-tokenisteğin kullanıcı adını gizli girdi olarak içerdiğine dikkat edin. Bu isteği Burp Tekrarlayıcıya gönderin.
+4. temp-forgot-password-tokenBurp Tekrarlayıcı'da, parametrenin değerini hem URL'de hem de istek gövdesinde silseniz bile parola sıfırlama işlevinin hala çalıştığını gözlemleyin.
+Bu, yeni parolayı gönderdiğinizde belirtecin kontrol edilmediğini onaylar.
+5. Tarayıcıda, yeni bir şifre sıfırlama talebinde bulunun ve şifrenizi tekrar değiştirin. POST /forgot-password?temp-forgot-password-tokenİsteği Burp Tekrarlayıcıya tekrar gönderin .
+6. Burp Tekrarlayıcı'da, parametrenin değerini temp-forgot-password-tokenhem URL'de hem de istek gövdesinde silin. Username parametresini carlos olarak değiştirin. Yeni şifreyi istediğiniz gibi ayarlayın ve isteği gönderin.
+7. Tarayıcıda az önce belirlediğiniz yeni şifreyi kullanarak Carlos'un hesabına giriş yapın. Laboratuvarı çözmek için Hesabım'a tıklayın .
+
+TOKENLERİ SİLİP FARKLI KULLANICI İLE GİRMEK
+wiener kullanıcısındaki şifreyi değiştirip tokenları silip ismi carlos yapıp carlosa giriş yapmak.
+
+
+
+
+4
+Lab: İncelikle farklı yanıtlar yoluyla kullanıcı adı sıralaması
+1. Burp çalışırken, geçersiz bir kullanıcı adı ve şifre gönderin. POST /loginİsteği Burp Intruder'a gönderin ve usernameparametreye bir yük konumu ekleyin.
+2. Yükler sekmesinde , Basit liste yük türünün seçili olduğundan emin olun ve aday kullanıcı adları listesini ekleyin.
+3. Ayarlar sekmesinde , Grep - Extract altında , Ekle'ye tıklayın . Görünen iletişim kutusunda, hata mesajını bulana kadar yanıtta aşağı doğru ilerleyin Invalid username or password.. 
+Mesajın metin içeriğini vurgulamak için fareyi kullanın. Diğer ayarlar otomatik olarak yapılacaktır. Tamam'a tıklayın ve ardından saldırıyı başlatın.
+4. Saldırı bittiğinde, ayıkladığınız hata mesajını içeren ek bir sütun olduğuna dikkat edin. Birinin ince bir şekilde farklı olduğunu fark etmek için bu sütunu kullanarak sonuçları sıralayın.
+5. Bu cevaba daha yakından bakın ve hata mesajında ​​bir yazım hatası içerdiğine dikkat edin - tam bir nokta/nokta yerine, sonunda bir boşluk var. Bu kullanıcı adını not edin.
+6. Saldırıyı kapatın ve Pozisyonlar sekmesine geri dönün. Az önce tanımladığınız kullanıcı adını girin ve parametreye bir yük konumu ekleyin password:
+username=identified-user&password=§invalid-password§
+7. Yükler sekmesinde , kullanıcı adları listesini temizleyin ve parola listesiyle değiştirin. Saldırıyı başlat.
+8. Saldırı bittiğinde, isteklerden birinin 302yanıt aldığına dikkat edin. Bu şifreyi not edin.
+9. Tanımladığınız kullanıcı adı ve şifreyi kullanarak giriş yapın ve laboratuvarı çözmek için kullanıcı hesabı sayfasına erişin.
+
+kullanıcı adını buluyoruz bunun için yanlış parola şifre girip invalid uyarısını alıyoruz uyarıyı alıp grep extract kısmından işaretliyoruz otomatik ayarlıyor.
+userlist pwlist ile tek tek deniyoruz userlist en üstte kalan ismi alıp pw brute forceden de length uzunluğuna göre buluyoruz.Yani dönen cevaba göre brute force yaptık burp ile.
+
+
+5
+Laboratuvar: Yanıt zamanlaması aracılığıyla kullanıcı adı sıralaması
+1. Burp çalışırken, geçersiz bir kullanıcı adı ve şifre girin, ardından POST /loginisteği Burp Tekrarlayıcıya gönderin. Farklı kullanıcı adları ve parolalarla denemeler yapın. 
+Çok fazla geçersiz giriş denemesi yaparsanız IP'nizin bloke edileceğine dikkat edin.
+2. X-Forwarded-ForIP adresinizi yanıltmanıza ve IP tabanlı kaba kuvvet korumasını atlamanıza izin veren başlığın desteklendiğini belirleyin .
+3. Kullanıcı adları ve parolalarla denemeye devam edin. Tepki sürelerine özellikle dikkat edin. Kullanıcı adı geçersiz olduğunda yanıt süresinin kabaca aynı olduğuna dikkat edin. 
+Ancak, geçerli bir kullanıcı adı (kendi kullanıcı adı) girdiğinizde, girdiğiniz şifrenin uzunluğuna bağlı olarak yanıt süresi uzar.
+4. Bu isteği Burp Intruder'a gönderin ve saldırı tipini Pitchfork olarak seçin . Varsayılan yük konumlarını temizleyin ve X-Forwarded-Forbaşlığı ekleyin.
+5. X-Forwarded-ForBaşlık ve parametre için yük konumları ekleyin username. Parolayı çok uzun bir karakter dizisine ayarlayın (yaklaşık 100 karakter yeterli olacaktır).
+6. Yükler sekmesinde yük grubu 1'i seçin. Sayılar yük türünü seçin. 1 - 100 aralığını girin ve adımı 1 olarak ayarlayın. Maksimum kesir basamaklarını 0 olarak ayarlayın. Bu, IP'nizi yanıltmak için kullanılacaktır.
+7. Yük seti 2'yi seçin ve kullanıcı adları listesini ekleyin. Saldırıyı başlat.
+8. Saldırı bittiğinde, iletişim kutusunun üst kısmında Sütunlar'a tıklayın ve Yanıt alındı ​​ve Yanıt tamamlandı seçeneklerini seçin . Bu iki sütun artık sonuçlar tablosunda görüntülenmektedir.
+9. Yanıt sürelerinden birinin diğerlerinden önemli ölçüde daha uzun olduğuna dikkat edin. Sürekli olarak daha uzun sürmesini sağlamak için bu isteği birkaç kez tekrarlayın, ardından bu kullanıcı adını not edin.
+10. Aynı istek için yeni bir Burp Intruder saldırısı oluşturun. Başlığı tekrar ekleyin X-Forwarded-Forve ona bir yük konumu ekleyin. Az önce tanımladığınız kullanıcı adını girin ve parametreye bir yük konumu ekleyin password.
+11. Yükler sekmesinde , yük kümesi 1'deki sayıların listesini ekleyin ve yük kümesi 2'ye parola listesini ekleyin. Saldırıyı başlatın.
+12. Saldırı bittiğinde, 302durumu olan yanıtı bulun. Bu şifreyi not edin.
+13. Tanımladığınız kullanıcı adı ve şifreyi kullanarak giriş yapın ve laboratuvarı çözmek için kullanıcı hesabı sayfasına erişin.
+
+id pw login olup yakalayıp
+requeste x-forwarded-for : bruteforce parametre ekleyip bulup 1-100 arası
+username brute force ile bulup pw bulunur. farkı x-forwarded-for parametresinin requeste eklenmesidir.
+xforwarded fora 1-100 arasında değer verilip userlist ve pwlist sırayla denenir 2 denemede de forwarded for 1-100 bruteforcede ayarlanır.
+sonuçlara bakarken de columns sekmesinden burpsuite özellikleri seçilir.response received ,response completed.
+
+6
+Laboratuvar: Bozuk kaba kuvvet korumasÄ±, IP engelleme
+Yanlış kullanıcı adıyla yapılan 3 istek bloklanmakta ancak ardından yapılan doğru giriş başarılı.
+özelleştirilmiş bir username password list ile birlikte pitchwork saldırısı ile carlos şifresi bulunuyor.
+userlist => 1 satır wiener 1 satır carlos olacak şekilde 200 satır
+passwordlist => ilk satır peter sonrakiler verilen passwordlist içerisine peteri spray ederek 200 satır oluştur.
+302 dönen carlos kullanıcısı için şifre kullanılabilir.
+
+
+7
+Lab: Hesap kilidi aracılığıyla kullanıcı adı sıralaması
+
+username=§invalid-username§&password=example§§
+Cluster bomb saldırısı.
+burpte 1.ci payloada userlist 2ciyede null payload 5 değerlerini ayarlıyoruz.
+Bu denemeler 5 sefer aynı kullanıcı adının denenmesi demek ve sonuçlarda farklı bir uzunluk arıyoruz.
+
+
+
+8
+Laboratuvar: 2FA bozuk mantık
+1. Burp çalışırken, kendi hesabınıza giriş yapın ve 2FA doğrulama sürecini araştırın. İstekte POST /login2, verify parametrenin hangi kullanıcının hesabına erişildiğini belirlemek için kullanıldığına dikkat edin.
+2. Hesabınızdan çıkış yapın.
+3. GET /login2İsteği Burp Tekrarlayıcıya gönderin . Parametrenin değerini verifyolarak değiştirin carlos ve isteği gönderin. Bu, Carlos için geçici bir 2FA kodunun üretilmesini sağlar.
+4. Giriş sayfasına gidin ve kullanıcı adınızı ve şifrenizi girin. Ardından, geçersiz bir 2FA kodu gönderin.
+5. POST /login2 İsteği Burp Intruder'a gönderin .
+6. Burp Intruder'da parametreyi verify olarak ayarlayın carlos ve parametreye mfa-code'a bir yük konumu ekleyin . Doğrulama kodunu kaba kuvvetle uygulayın.
+7. 302 yanıtını tarayıcıya yükleyin.
+8. Laboratuvarı çözmek için Hesabım'a tıklayın .
+ kullanıcı parametresi carlosa çevrilip doğrulama koduna brute force yapıyoruz.
