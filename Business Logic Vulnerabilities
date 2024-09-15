@@ -1,6 +1,6 @@
 İş mantığı güvenlik açıkları
 
-1
+1 - Fiyat manipülasyonu
 Laboratuvar: İstemci tarafındaki kontrollere aşırı güven
 
 Login olup deri ceket alma işlemi gerçekleştiriyoruz.
@@ -11,7 +11,7 @@ POST /cart HTTP/2 => yakalanacak istek
 productId=1&redir=PRODUCT&quantity=1&price=10 => değiştirilecek parametre.
 
 
-2
+2 - Miktar'a - değer vermek ve 2 ürün ile total fiyatı düşürmek.
 Laboratuvar: Üst düzey mantık açığı
 
 Login olduk 1 ceket ekledik fiyatıo 1337 dolar.
@@ -19,3 +19,13 @@ quantity 1 olduğunu gördük post isteği ile.
 Yeni bir ürün ekledik 88 dolar. Bu ürünün quantity değerini -15 ayarlayıp totali 100dolardan aşağıya çektik.
 productId=2&redir=PRODUCT&quantity=-15
 Ve siparişi ver diyerek 1337 dolarlık ürünü 100 dolardan daha ucuza aldık.
+
+
+3 - sitemapten content discover özelliğini kullanarak bulunan gizli dizin ile mail değiştirmek.
+Sitemap'ten /admin uç noktasını bulduk ve girdiğimiz zaman DontWannaCry kullanıcısı ile ilgili bir yazı çıkıyor.
+Register sayfasına geçtik hacker@$emailsunucusundanalınanmail uzantısını girdik.
+Kayıt olup maili onayladık giriş yaptık ve mail değişme kısmından carlos@dontwannacry.com mailine değiştirdik.
+Admin paneline erişim sağlayıp carlos kullanıcısını sildik.
+
+
+4
