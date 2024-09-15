@@ -28,4 +28,19 @@ Kayıt olup maili onayladık giriş yaptık ve mail değişme kısmından carlos
 Admin paneline erişim sağlayıp carlos kullanıcısını sildik.
 
 
-4
+4 - kuponların ardışık kullanılması.
+2 FARKLI KUPONUN ARDIŞIK KULLANILMASI İLE ÜRÜN FİYATINI SIFIRLAYANA KADAR DENİYORUZ VE SİPARİŞLE ALIYORUZ.
+
+| Name | Price | Quantity |  |
+| Lightweight "l33t" Leather Jacket | $1337.00 | 1 |  |
+| NEWCUST5 | -$5.00 |  |  |
+| SIGNUP30 | -$401.10 |  |  |
+| NEWCUST5 | -$5.00 |  |  |
+| SIGNUP30 | -$401.10 |  |  |
+| NEWCUST5 | -$5.00 |  |  |
+| SIGNUP30 | -$401.10 |  |  |
+| NEWCUST5 | -$5.00 |  |  |
+| SIGNUP30 | -$401.10 |  |  |
+
+
+5 - 
