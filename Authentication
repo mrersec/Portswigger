@@ -3,14 +3,14 @@ Lab: Farklı yanıtlar aracılığıyla kullanıcı adı sıralaması - KİMLİK
 1. Burp çalışırken oturum açma sayfasını araştırın ve geçersiz bir kullanıcı adı ve parola gönderin.
 2. Burp'ta, Proxy > HTTP geçmişi'ne gidin ve POST /login isteği bulun. Bunu Burp Intruder'a gönder.
 3. Burp Intruder'da Konumlar sekmesine gidin. Keskin Nişancı saldırı türünün seçildiğinden emin olun .
-4. Otomatik olarak atanan yük konumlarını kaldırmak için Temizle § öğesine tıklayın . Parametrenin değerini vurgulayın usernameve onu bir yük konumu olarak ayarlamak için Ekle §'ye tıklayın .
+4. Otomatik olarak atanan yük konumlarını kaldırmak için Temizle § öğesine tıklayın . Parametrenin değerini vurgulayın username ve onu bir yük konumu olarak ayarlamak için Ekle §'ye tıklayın .
 Bu konum iki sembolle gösterilecektir §, örneğin: username=§invalid-username§. Parolayı şimdilik herhangi bir statik değer olarak bırakın.
 5. Yükler sekmesinde , Basit liste yük türünün seçili olduğundan emin olun .
 6. Yük ayarları altında , aday kullanıcı adları listesini yapıştırın. Son olarak, Saldırıyı başlat seçeneğine tıklayın . Saldırı yeni bir pencerede başlayacak.
 7. Saldırı bittiğinde, Sonuçlar sekmesinde Uzunluk sütununu inceleyin . Sonuçları sıralamak için sütun başlığına tıklayabilirsiniz. 
 Girişlerden birinin diğerlerinden daha uzun olduğuna dikkat edin. Bu yüke verilen yanıtı diğer yanıtlarla karşılaştırın.
 Diğer yanıtların mesajı içerdiğine dikkat edin Invalid username, ancak bu yanıt diyor Incorrect password. Kullanıcı adını Yük sütununa not edin .
-8. Saldırıyı kapatın ve Pozisyonlar sekmesine geri dönün. Temizle 'yi tıklayın , ardından usernameparametreyi az önce tanımladığınız kullanıcı adıyla değiştirin. Parametreye bir yük konumu ekleyin password. Sonuç şöyle görünmelidir:
+8. Saldırıyı kapatın ve Pozisyonlar sekmesine geri dönün. Temizle 'yi tıklayın , ardından username parametreyi az önce tanımladığınız kullanıcı adıyla değiştirin. Parametreye bir yük konumu ekleyin password. Sonuç şöyle görünmelidir:
 username=identified-user&password=§invalid-password§
 9. Yükler sekmesinde , kullanıcı adları listesini temizleyin ve aday parolalar listesiyle değiştirin. Saldırıyı başlat'ı tıklayın .
 10. Saldırı bittiğinde Durum sütununa bakın. 200 Yanıt alan bir istek dışında her isteğin bir 302 durum koduyla yanıt aldığına dikkat edin. Bu, oturum açma girişiminin başarılı olduğunu gösterir - Yük sütununa parolayı not edin .
@@ -121,4 +121,6 @@ Laboratuvar: 2FA bozuk mantık
 6. Burp Intruder'da parametreyi verify olarak ayarlayın carlos ve parametreye mfa-code'a bir yük konumu ekleyin . Doğrulama kodunu kaba kuvvetle uygulayın.
 7. 302 yanıtını tarayıcıya yükleyin.
 8. Laboratuvarı çözmek için Hesabım'a tıklayın .
+
+verify=wiener'i carlos olarak değiştirip mfa-code data değerine bruteforce gerçekleştiriyoruz.
  kullanıcı parametresi carlosa çevrilip doğrulama koduna brute force yapıyoruz.
