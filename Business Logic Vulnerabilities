@@ -59,3 +59,20 @@ ikinci ürünü ise eklediğimizde bu sefer null payloads kısmını seçip gene
 quantity 47 ayarladıktan sonra send edip - fiyatı düşürüp 100dolar altına dengelemeye çalışıyoruz.
 ikinci üründen biraz daha ekleyerek totali 100 doların altına çekmeyi başarıyoruz.
 Null payloadlar göndererek ürün miktarları arasında değişimde ceket fiyatını -ye düşürüyoruz
+
+6
+
+
+
+
+
+
+
+
+
+7 - Şifre değiştirme parametresi olmadan şifre değiştirme işleminin onaylanması.
+
+Şifre değiştirme işlemi sırasında current password değerini tamamen sildiğimizde parolanın değiştirilebildiğini gördük
+username administrator yaparak send ettiğimizde ise administrator şifresini değiştirmiş olduk.
+admin panelden calos adlı kullanıcıyı sildik ve labı çözdük.
+
