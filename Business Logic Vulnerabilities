@@ -43,4 +43,19 @@ Admin paneline erişim sağlayıp carlos kullanıcısını sildik.
 | SIGNUP30 | -$401.10 |  |  |
 Total:	$0.00
 
-5 - 
+5 - Null payload yöntemleri ile quantity değerini manipüle etmek ve 2 ürün üzerinden toplam fiyatı 100 doların altına çekmek.
+
+| Name | Price | Quantity |  |
+| Lightweight "l33t" Leather Jacket | $1337.00 | 32123 |  |
+| There's No Place Like Gnome | $88.77 | 14 |  |
+
+
+| Total: | $20.82 |
+
+
+İlk önce deri cekete null payload gönderiyoruz ve cotinue indefinetely seçeneğini seçiyoruz. Null payload ile quantity 99dan fazla veremediğimiz değeri 99 üzerine çıkartabiliyoruz.
+ikinci ürünü ise eklediğimizde bu sefer null payloads kısmını seçip generate payloads kısmına 323 değerini yazıp başlatıyoruz.
+32077 ve 1 ürün değerinde 100doların altına yaklaştığımızı görüp isteği durduruyoruz.
+quantity 47 ayarladıktan sonra send edip - fiyatı düşürüp 100dolar altına dengelemeye çalışıyoruz.
+ikinci üründen biraz daha ekleyerek totali 100 doların altına çekmeyi başarıyoruz.
+Null payloadlar göndererek ürün miktarları arasında değişimde ceket fiyatını -ye düşürüyoruz
