@@ -76,3 +76,6 @@ Null payloadlar göndererek ürün miktarları arasında değişimde ceket fiyat
 username administrator yaparak send ettiğimizde ise administrator şifresini değiştirmiş olduk.
 admin panelden calos adlı kullanıcıyı sildik ve labı çözdük.
 
+8 - Hangi ürünün satın alındığına dair kontrol mekanizması yoksa istekte farklı ürünleri için tekrar kullanılabilen bir istek sorunu ortaya çıkar.
+GET /cart/order-confirmation?order-confirmation=true dışında herhangi bir kontrol mekanizması eklenmediğinden
+100 doların altında 1 alışveriş gerçekleştirip sonra 1337 dolarlık bir ürün ekleyip isteği tekrar send ettiğimizde ürün içeriğini kontrol etmeden siparişi onaylar.
