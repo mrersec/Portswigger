@@ -15,6 +15,7 @@ StockApi= http://localhost/admin/delete?username=carlos
 2
 
 Laboratuvar: Başka bir arka uç sisteme karşı temel SSRF
+
 ilk olarak stockApi=http://192.168.0.$1$:8080/admin payloadını yükleyip intruderden 1 parametresine 1-255 arası değer verip 200 dönene kadar bruteforce yapıyoruz. 
 207 açıksa 192.168.0.207:8080/admin ile giriş yapıyoruz.
 sonra final kullanıcı silme işlemi
@@ -30,7 +31,9 @@ stockApi=http://192.168.0.207:8080/admin/delete?username=carlos
 
 
 4
+
 Laboratuvar: Kara liste tabanlı giriş filtreli SSRF
+
 1. Bir ürünü ziyaret edin, "Stoğu kontrol et"e tıklayın, talebi Burp Suite'te durdurun ve Burp Tekrarlayıcı'ya gönderin.
 2. Parametredeki URL'yi stockApiolarak değiştirin http://127.0.0.1/ve isteğin engellendiğini gözlemleyin.
 3. URL'yi şu şekilde değiştirerek engellemeyi atlayın:http://127.1/
