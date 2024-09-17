@@ -19,3 +19,25 @@ ilk olarak stockApi=http://192.168.0.$1$:8080/admin payloadını yükleyip intru
 207 açıksa 192.168.0.207:8080/admin ile giriş yapıyoruz.
 sonra final kullanıcı silme işlemi
 stockApi=http://192.168.0.207:8080/admin/delete?username=carlos
+
+
+3
+
+
+
+
+
+
+
+4
+Laboratuvar: Kara liste tabanlı giriş filtreli SSRF
+1. Bir ürünü ziyaret edin, "Stoğu kontrol et"e tıklayın, talebi Burp Suite'te durdurun ve Burp Tekrarlayıcı'ya gönderin.
+2. Parametredeki URL'yi stockApiolarak değiştirin http://127.0.0.1/ve isteğin engellendiğini gözlemleyin.
+3. URL'yi şu şekilde değiştirerek engellemeyi atlayın:http://127.1/
+4. URL'yi olarak değiştirin http://127.1/adminve URL'nin tekrar engellendiğini gözlemleyin.
+5. Yönetici arayüzüne erişmek ve hedef kullanıcıyı silmek için admin değerini URL'yi çift encode  olarak kodlayarak  gizleyin.
+6. 127.1 değerini ise decimal ve hexadecimal değere çevirerek bypass ediyoruz.
+
+admine double url encode yapıyoruz filteri aşmak için. orijinali ilk kısım 127.1/admin admin çift encode edilmiş.
+
+
