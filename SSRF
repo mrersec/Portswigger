@@ -44,3 +44,17 @@ Laboratuvar: Kara liste tabanlı giriş filtreli SSRF
 admine double url encode yapıyoruz filteri aşmak için. orijinali ilk kısım 127.1/admin admin çift encode edilmiş.
 
 
+5
+
+Laboratuar: Açık yeniden yönlendirme güvenlik açığı yoluyla filtre atlamalı SSRF
+
+1. Bir ürünü ziyaret edin, "Stoğu kontrol et"e tıklayın, talebi Burp Suite'te durdurun ve Burp Tekrarlayıcı'ya gönderin.
+2. Parametreyi kurcalamayı deneyin stockApive sunucunun isteği doğrudan farklı bir ana bilgisayara göndermesini sağlamanın mümkün olmadığını gözlemleyin.
+3. "Sonraki ürün"e tıklayın ve parametrenin pathbir yeniden yönlendirme yanıtının Konum başlığına yerleştirildiğini ve bunun da açık bir yeniden yönlendirmeyle sonuçlandığını gözlemleyin.
+4. Açık yeniden yönlendirme güvenlik açığından yararlanan ve yönetici arayüzüne yönlendiren bir URL oluşturun ve bunu stockApistok denetleyicideki parametreye besleyin:
+/product/nextProduct?path=http://192.168.0.12:8080/admin
+5. Hisse senedi denetleyicisinin yönlendirmeyi takip ettiğini ve size yönetici sayfasını gösterdiğini gözlemleyin.
+6. Hedef kullanıcıyı silmek için yolu değiştirin:
+/product/nextProduct?path=http://192.168.0.12:8080/admin/delete?username=carlos
+ geliyorsa yönlendirme deneyip
+stockApi=/product/nextProduct?path=/product/nextProduct?path=http://192.168.0.12:8080/admin/delete?username=carlos ile kullanıcı silinir.
