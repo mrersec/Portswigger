@@ -8,6 +8,7 @@ ekstradan ;id komutunuda deniyoruz çalışıyor.
 forward ile sonuç alınır.
 
 2
+
 Laboratuvar: Zaman gecikmeli Blind OS komut enjeksiyonu
 1. Geri bildirim gönderen isteği durdurmak ve değiştirmek için Burp Suite'i kullanın.
 2. Parametreyi emailşu şekilde değiştirerek değiştirin:
@@ -18,3 +19,22 @@ feedback gönderirken oluşan mesajdaki açık. geribildirim forumunda olabilir.
 
 
 3
+
+Laboratuvar: Çıkış yeniden yönlendirmeli Blind OS komut enjeksiyonu
+feedback gönderip komut enjeksiyonu yapıyoruz 1.adımda
+
+csrf=kUJK8kI8XwDHCMqc5PC2k6aJIFtGHP2k&name=test&email=hacker%40hacker.co||whoami>/var/www/images/output.txt||&subject=wqe&message=wqe
+
+sonra bir ürün seçip /images altında filename parametresinde bir dosya olduğunu farkediyoruz.
+output olarak whoami komutunu alabilirsek buradan çağırabiliriz.
+2.ci adımda ürünü tıklayıp isteği burp ile yakalayıp 2kez forward edip output.txt giriyoruz 
+
+GET /image?filename=output.txt HTTP/2
+
+1. Geri bildirim gönderen isteği durdurmak ve değiştirmek için Burp Suite'i kullanın.
+2. Parametreyi emailşu şekilde değiştirerek değiştirin:
+email=||whoami>/var/www/images/output.txt||
+3. Şimdi, bir ürünün görüntüsünü yükleyen isteği durdurmak ve değiştirmek için Burp Suite'i kullanın.
+4. filenameDeğeri enjekte edilen komutun çıktısı için belirttiğiniz dosyanın adına değiştirerek parametreyi değiştirin :
+filename=output.txt
+5. Yanıtın enjekte edilen komutun çıktısını içerdiğini gözlemleyin.
