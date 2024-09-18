@@ -1,0 +1,9 @@
+1
+
+Laboratuvar: isletim sistemi komut enjeksiyonu, basit durum
+
+BURPTEN storeId= parametresine alttaki payloadı girip whoami komut çalıştırılır.
+1|whoami
+ekstradan ;id komutunuda deniyoruz çalışıyor.
+forward ile sonuç alınır.
+
